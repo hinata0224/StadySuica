@@ -8,7 +8,12 @@ namespace InputProvider
     {
         private Subject<Unit> _onSubmitObservable = new Subject<Unit>();
 
-        public IObservable<Unit> OnSubmitObservable => _onSubmitObservable;
+        /// <summary>
+        /// 決定ボタンの入力イベント
+        /// 連打防止のため 5 フレームの間連打されても一回押されたことにする
+        /// フレーム数は適当
+        /// </summary>
+        public IObservable<Unit> OnSubmitObservable => _onSubmitObservable.ThrottleFirstFrame(5);
 
         private void Update()
         {

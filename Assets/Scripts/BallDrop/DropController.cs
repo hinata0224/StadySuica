@@ -1,5 +1,6 @@
-using System;
 using UnityEngine;
+using InputProvider;
+using UniRx;
 
 namespace Ball_Drop
 {
@@ -7,6 +8,24 @@ namespace Ball_Drop
     {
         [SerializeField] private float _maximumCameraMovableLimit = 5f;
         [SerializeField] private float _speed = 0.02f;
+        [SerializeField] private Transform _ballPosition;
+
+        [SerializeField] private GameObject _ballObject;
+
+        private IInputProvider inputProvider;
+
+        private void Awake()
+        {
+            inputProvider = UnityInputProvider.Instance;
+        }
+
+        private void Start()
+        {
+            inputProvider.OnSubmitObservable
+                .Where(_ => _ballObject != null)
+                .Subscribe(_ => DropBall())
+                .AddTo(gameObject);
+        }
 
         private void Update()
         {
@@ -57,9 +76,22 @@ namespace Ball_Drop
                 inputX = -_maximumCameraMovableLimit;
             }
 
-            return new Vector2(inputX, 0);
+            return new Vector2(inputX, transform.position.y);
         }
         #endregion
 
+        #region  Drop
+
+        /// <summary>
+        /// 弾を落とす
+        /// </summary>
+        private void DropBall()
+        {
+            _ballObject.transform.parent = null;
+            _ballObject.GetComponent<Rigidbody2D>().gravityScale = 1;
+            _ballObject = null;
+        }
+
+        #endregion
     }
 }
