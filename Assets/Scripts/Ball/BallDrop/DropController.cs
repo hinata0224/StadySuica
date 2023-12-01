@@ -1,27 +1,31 @@
 using UnityEngine;
 using InputProvider;
 using UniRx;
+using System;
 
 namespace Ball_Drop
 {
-    public class DropController : MonoBehaviour
+    public class DropController : MonoBehaviour, IDorpController
     {
         [SerializeField] private float _maximumCameraMovableLimit = 5f;
         [SerializeField] private float _speed = 0.02f;
         [SerializeField] private Transform _ballPosition;
 
         private GameObject _ballObject;
+        private CompositeDisposable disposables = new CompositeDisposable();
 
-        private IInputProvider inputProvider;
+        private IInputProvider _inputProvider;
+        private ISystemState _systemState;
 
         private void Awake()
         {
-            inputProvider = UnityInputProvider.Instance;
+            _inputProvider = UnityInputProvider.Instance;
+            _systemState = GameStore.Instance.SystemStates;
         }
 
         private void Start()
         {
-            inputProvider.OnSubmitObservable
+            _inputProvider.OnSubmitObservable
                 .Where(_ => _ballObject != null)
                 .Subscribe(_ => DropBall())
                 .AddTo(gameObject);
@@ -90,6 +94,12 @@ namespace Ball_Drop
             _ballObject.transform.parent = null;
             _ballObject.GetComponent<Rigidbody2D>().gravityScale = 1;
             _ballObject = null;
+
+            // 1 秒後にステートを更新
+            // 秒数は適当
+            Observable.Timer(TimeSpan.FromSeconds(1))
+                .Subscribe(_ => _systemState.AddGameState(Constants.CGameState.NextBall))
+                .AddTo(disposables);
         }
 
         #endregion
@@ -104,6 +114,8 @@ namespace Ball_Drop
         {
             _ballObject = ball;
             _ballObject.transform.parent = _ballPosition;
+            _ballObject.transform.localPosition = new Vector3(0, 0, 0);
+            disposables.Clear();
         }
 
         #endregion

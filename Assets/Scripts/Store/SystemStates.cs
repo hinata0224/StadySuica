@@ -22,7 +22,7 @@ public class SystemStates : ISystemState
     /// <summary> ゲームステート (privateのRP) </summary>
     private ReactiveCollection<CGameState> _rpCGameStates;
     /// <summary> ゲームステート (Subscribe用) </summary>
-    public IReadOnlyCollection<CGameState> RPCGameStates => _rpCGameStates;
+    public IReadOnlyReactiveCollection<CGameState> RPCGameStates => _rpCGameStates;
 
     /// <summary>
     /// ゲームステート追加用セッター

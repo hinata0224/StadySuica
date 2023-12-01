@@ -1,9 +1,9 @@
-using System.Collections.Generic;
 using Constants;
+using UniRx;
 
 public interface ISystemState
 {
-    public IReadOnlyCollection<CGameState> RPCGameStates { get; }
+    public IReadOnlyReactiveCollection<CGameState> RPCGameStates { get; }
     /// <summary>
     /// ゲームステート追加用セッター
     /// </summary>
