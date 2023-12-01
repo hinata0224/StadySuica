@@ -10,7 +10,7 @@ namespace Ball_Drop
         [SerializeField] private float _speed = 0.02f;
         [SerializeField] private Transform _ballPosition;
 
-        [SerializeField] private GameObject _ballObject;
+        private GameObject _ballObject;
 
         private IInputProvider inputProvider;
 
@@ -90,6 +90,20 @@ namespace Ball_Drop
             _ballObject.transform.parent = null;
             _ballObject.GetComponent<Rigidbody2D>().gravityScale = 1;
             _ballObject = null;
+        }
+
+        #endregion
+
+        #region  Next
+
+        /// <summary>
+        /// 次のオブジェクトをセット
+        /// </summary>
+        /// <param name="ball">次のオブジェクト</param>
+        public void SetNextBall(GameObject ball)
+        {
+            _ballObject = ball;
+            _ballObject.transform.parent = _ballPosition;
         }
 
         #endregion
