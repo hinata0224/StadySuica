@@ -10,4 +10,7 @@ public static class TagName
     public const string MainCamera = "MainCamera";
     public const string Player = "Player";
     public const string GameController = "GameController";
+    public const string BallController = "BallController";
+    public const string Ball = "Ball";
+    public const string ScoreView = "ScoreView";
 }

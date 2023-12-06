@@ -4,11 +4,11 @@ using UniRx;
 using System.Linq;
 using Constants;
 using Lean.Pool;
-using System;
+using Ball_Data;
 
 namespace Ball_Next
 {
-    public class NextBallController : MonoBehaviour
+    public class BallController : MonoBehaviour, IBallController
     {
         private int _ballCount;
         [SerializeField] private BallList _ballList;
@@ -37,10 +37,36 @@ namespace Ball_Next
         /// </summary>
         private void NextBall()
         {
-            GameObject nextBall = _ballList.NextBallList[UnityEngine.Random.Range(0, _ballCount)];
+            GameObject nextBall = _ballList.NextBallList[UnityEngine.Random.Range(0, _ballCount)].Ball;
             nextBall = LeanPool.Spawn(nextBall);
             _dropController.SetNextBall(nextBall);
             _systemState.RemoveGameState(CGameState.NextBall);
+        }
+
+        /// <summary>
+        /// ボールに一致したオブジェクトを返す
+        /// </summary>
+        /// <param name="type"></param>
+        /// <returns></returns>
+        public GameObject FindBall(CBallType type)
+        {
+            GameObject ball;
+            switch (type)
+            {
+                case CBallType.Small:
+                    ball = LeanPool.Spawn(_ballList.NextBallList[1].Ball);
+                    break;
+                case CBallType.Middle:
+                    ball = LeanPool.Spawn(_ballList.NextBallList[2].Ball);
+                    break;
+                case CBallType.Major:
+                    ball = null;
+                    break;
+                default:
+                    ball = null;
+                    break;
+            }
+            return ball;
         }
     }
 }
