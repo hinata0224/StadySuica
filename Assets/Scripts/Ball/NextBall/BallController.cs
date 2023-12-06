@@ -4,6 +4,7 @@ using UniRx;
 using System.Linq;
 using Constants;
 using Lean.Pool;
+using Ball_Data;
 
 namespace Ball_Next
 {
@@ -36,7 +37,7 @@ namespace Ball_Next
         /// </summary>
         private void NextBall()
         {
-            GameObject nextBall = _ballList.NextBallList[UnityEngine.Random.Range(0, _ballCount)];
+            GameObject nextBall = _ballList.NextBallList[UnityEngine.Random.Range(0, _ballCount)].Ball;
             nextBall = LeanPool.Spawn(nextBall);
             _dropController.SetNextBall(nextBall);
             _systemState.RemoveGameState(CGameState.NextBall);
@@ -53,10 +54,10 @@ namespace Ball_Next
             switch (type)
             {
                 case CBallType.Small:
-                    ball = LeanPool.Spawn(_ballList.NextBallList[1]);
+                    ball = LeanPool.Spawn(_ballList.NextBallList[1].Ball);
                     break;
                 case CBallType.Middle:
-                    ball = LeanPool.Spawn(_ballList.NextBallList[2]);
+                    ball = LeanPool.Spawn(_ballList.NextBallList[2].Ball);
                     break;
                 case CBallType.Major:
                     ball = null;

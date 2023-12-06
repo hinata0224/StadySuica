@@ -6,11 +6,16 @@ public class GameStore : SingletonMonoBehaviour<GameStore>, IGameStore
     private SystemStates _systemStates;
     public SystemStates SystemStates => _systemStates;
 
+    private GameData _gameData;
+    public IGameData GameData => _gameData;
+
     protected override void Awake()
     {
         base.Awake();
         // システムステートの初期値セット
         SetSystemStates(GetInitSystemStates());
+        // ゲームデータの初期化
+        _gameData = new GameData();
     }
 
     /// <summary> システムステートのセット </summary>
