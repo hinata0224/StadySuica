@@ -12,4 +12,5 @@ public static class TagName
     public const string GameController = "GameController";
     public const string BallController = "BallController";
     public const string Ball = "Ball";
+    public const string ScoreView = "ScoreView";
 }

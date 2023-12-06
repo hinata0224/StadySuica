@@ -6,7 +6,5 @@ namespace Constants
         NextBall,
         /// <summary> ゲームオーバー </summary>
         GameOver,
-        /// <summary> スコアのセーブ </summary>
-        ScoreSaveEnd,
     }
 }

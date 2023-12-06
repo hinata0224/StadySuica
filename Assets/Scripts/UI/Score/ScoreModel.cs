@@ -1,23 +1,25 @@
 using Ball_Data;
 using Constants;
+using UniRx;
 using UnityEngine;
 
 namespace Score
 {
-    public class ScoreModel
+    public class ScoreModel : IScoreModel
     {
         public ScoreModel(BallList ballList)
         {
-            Initilaize(_ballList);
+            Initilaize(ballList);
         }
 
         private BallList _ballList;
-        private int _score;
+        private ReactiveProperty<int> _rpScore = new ReactiveProperty<int>();
+        public IReadOnlyReactiveProperty<int> RPScore => _rpScore;
 
         private void Initilaize(BallList ballList)
         {
             _ballList = ballList;
-            _score = 0;
+            _rpScore.Value = 0;
         }
 
         /// <summary>
@@ -30,7 +32,7 @@ namespace Score
             {
                 if (data.BallType == type)
                 {
-                    _score += data.Score;
+                    _rpScore.Value += data.Score;
                     break;
                 }
             }
@@ -41,8 +43,7 @@ namespace Score
         /// </summary>
         public void SaveScore()
         {
-            GameStore.Instance.GameData.AddScore(_score);
-            GameStore.Instance.SystemStates.AddGameState(CGameState.ScoreSaveEnd);
+            GameStore.Instance.GameData.SaveScore(_rpScore.Value);
         }
     }
 }

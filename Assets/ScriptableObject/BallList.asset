@@ -13,6 +13,12 @@ MonoBehaviour:
   m_Name: BallList
   m_EditorClassIdentifier: 
   NextBallList:
-  - {fileID: 6402110873739972213, guid: f238f9c7e874c284c8780a8b2ff929bc, type: 3}
-  - {fileID: 6402110873739972213, guid: e661e05c38420e34db1db48f18055005, type: 3}
-  - {fileID: 6402110873739972213, guid: 8605e9af453b09b47bb1efe1ef4a6a94, type: 3}
+  - _ball: {fileID: 6402110873739972213, guid: f238f9c7e874c284c8780a8b2ff929bc, type: 3}
+    _type: 0
+    _score: 5
+  - _ball: {fileID: 6402110873739972213, guid: e661e05c38420e34db1db48f18055005, type: 3}
+    _type: 1
+    _score: 10
+  - _ball: {fileID: 6402110873739972213, guid: 8605e9af453b09b47bb1efe1ef4a6a94, type: 3}
+    _type: 2
+    _score: 15

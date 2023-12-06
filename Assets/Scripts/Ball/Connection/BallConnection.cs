@@ -57,6 +57,7 @@ namespace BAll_Connection
             {
                 if (IsSpwanPosition(other.gameObject.transform))
                 {
+                    GameStore.Instance.GameData.AddScoreType(_ballType);
                     ConnectBall();
                 }
                 GetComponent<Rigidbody2D>().gravityScale = 0;
