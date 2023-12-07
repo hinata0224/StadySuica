@@ -15,14 +15,34 @@ MonoBehaviour:
   BallLists:
   - _ball: {fileID: 6402110873739972213, guid: f238f9c7e874c284c8780a8b2ff929bc, type: 3}
     _type: 0
-    _score: 5
-  - _ball: {fileID: 6402110873739972213, guid: e661e05c38420e34db1db48f18055005, type: 3}
+    _score: 3
+  - _ball: {fileID: 6402110873739972213, guid: 19f805c6293394445a5b9125cb8678c0, type: 3}
     _type: 1
-    _score: 10
-  - _ball: {fileID: 6402110873739972213, guid: 8605e9af453b09b47bb1efe1ef4a6a94, type: 3}
+    _score: 6
+  - _ball: {fileID: 6402110873739972213, guid: a9fa04b4d734dd641a44696d24ba9879, type: 3}
     _type: 2
+    _score: 9
+  - _ball: {fileID: 6402110873739972213, guid: e661e05c38420e34db1db48f18055005, type: 3}
+    _type: 3
+    _score: 12
+  - _ball: {fileID: 6402110873739972213, guid: 8092a09f49827b84d8657bbc64baaafc, type: 3}
+    _type: 4
     _score: 15
+  - _ball: {fileID: 6402110873739972213, guid: 410b9e3e78b710e4f9e4a6cbd653fc24, type: 3}
+    _type: 5
+    _score: 18
+  - _ball: {fileID: 6402110873739972213, guid: 8605e9af453b09b47bb1efe1ef4a6a94, type: 3}
+    _type: 6
+    _score: 21
+  - _ball: {fileID: 6402110873739972213, guid: e1ef4b35acacc5f4883593eb9572741d, type: 3}
+    _type: 7
+    _score: 24
+  - _ball: {fileID: 6402110873739972213, guid: e6b69f7f203a7c34e92617b2950a773f, type: 3}
+    _type: 8
+    _score: 27
   NextBallList:
   - {fileID: 6402110873739972213, guid: f238f9c7e874c284c8780a8b2ff929bc, type: 3}
+  - {fileID: 6402110873739972213, guid: 19f805c6293394445a5b9125cb8678c0, type: 3}
+  - {fileID: 6402110873739972213, guid: a9fa04b4d734dd641a44696d24ba9879, type: 3}
   - {fileID: 6402110873739972213, guid: e661e05c38420e34db1db48f18055005, type: 3}
-  - {fileID: 6402110873739972213, guid: 8605e9af453b09b47bb1efe1ef4a6a94, type: 3}
+  - {fileID: 6402110873739972213, guid: 8092a09f49827b84d8657bbc64baaafc, type: 3}

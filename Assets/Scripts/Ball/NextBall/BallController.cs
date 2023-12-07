@@ -50,22 +50,20 @@ namespace Ball_Next
         /// <returns></returns>
         public GameObject FindBall(CBallType type)
         {
-            GameObject ball;
-            switch (type)
+            GameObject ball = null;
+            bool isNextBallType = false;
+            foreach (BallData ballData in _ballList.BallLists)
             {
-                case CBallType.Small:
-                    ball = LeanPool.Spawn(_ballList.NextBallList[1]);
-                    break;
-                case CBallType.Middle:
-                    ball = LeanPool.Spawn(_ballList.NextBallList[2]);
-                    break;
-                case CBallType.Major:
-                    ball = null;
-                    break;
-                default:
-                    ball = null;
-                    break;
+                if (isNextBallType)
+                {
+                    ball = LeanPool.Spawn(ballData.Ball);
+                }
+                if (type == ballData.BallType)
+                {
+                    isNextBallType = true;
+                }
             }
+
             return ball;
         }
     }
