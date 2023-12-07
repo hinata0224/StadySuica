@@ -4,7 +4,7 @@ using Constants;
 public class GameStore : SingletonMonoBehaviour<GameStore>, IGameStore
 {
     private SystemStates _systemStates;
-    public SystemStates SystemStates => _systemStates;
+    public ISystemState SystemStates => _systemStates;
 
     private GameData _gameData;
     public IGameData GameData => _gameData;

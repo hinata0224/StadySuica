@@ -17,6 +17,8 @@ public class SystemStates : ISystemState
     )
     {
         _rpCGameStates = new ReactiveCollection<CGameState>(cGameStates);
+        _rpIsTimeRunning = new ReactiveProperty<bool>();
+        UpdateIstimeRunning();
     }
 
     /// <summary> ゲームステート (privateのRP) </summary>
@@ -31,6 +33,7 @@ public class SystemStates : ISystemState
     public void AddGameState(CGameState value)
     {
         if (!RPCGameStates.Contains(value)) _rpCGameStates.Add(value);
+        UpdateIstimeRunning();
     }
 
     /// <summary>
@@ -40,5 +43,36 @@ public class SystemStates : ISystemState
     public void RemoveGameState(CGameState value)
     {
         if (RPCGameStates.Contains(value)) _rpCGameStates.Remove(value);
+        UpdateIstimeRunning();
     }
+
+    /// <summary> 時間が進行中かのフラグ (privateのRP) </summary>
+    private ReactiveProperty<bool> _rpIsTimeRunning;
+    /// <summary> 時間が進行中かのフラグ (Subscribe用) </summary>
+    public IReadOnlyReactiveProperty<bool> RPIsTimeRunning => _rpIsTimeRunning;
+
+    /// <summary> 時間が進行中かのフラグのセッター </summary>
+    /// NOTE: CGameStateによって状態が決定するためprivateにしている
+    /// <param name="value">値</param>
+    private void SetIsTimeRunning(bool value)
+    {
+        _rpIsTimeRunning.Value = value;
+    }
+
+    /// <summary>
+    /// 時間が進行中かのフラグを更新する
+    /// </summary>
+    private void UpdateIstimeRunning()
+    {
+        bool isTimeRunning = !RPCGameStates.Any(a => timeStopGameStates.Contains(a));
+        SetIsTimeRunning(isTimeRunning);
+    }
+
+    /// <summary>
+    /// 時間が停止するゲームステート一覧
+    /// </summary>
+    /// <value></value>
+    private readonly List<CGameState> timeStopGameStates = new List<CGameState>{
+        CGameState.TimeStop,
+    };
 }

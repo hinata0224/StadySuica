@@ -6,5 +6,7 @@ namespace Constants
         NextBall,
         /// <summary> ゲームオーバー </summary>
         GameOver,
+        /// <summary> 一時停止 </summary>
+        TimeStop,
     }
 }
