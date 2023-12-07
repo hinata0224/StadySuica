@@ -57,6 +57,7 @@ namespace Ball_Next
                 if (isNextBallType)
                 {
                     ball = LeanPool.Spawn(ballData.Ball);
+                    break;
                 }
                 if (type == ballData.BallType)
                 {
