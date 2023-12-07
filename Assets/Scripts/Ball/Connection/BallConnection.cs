@@ -2,18 +2,28 @@ using UnityEngine;
 using Constants;
 using Ball_Next;
 using Lean.Pool;
+using UniRx;
 
 namespace BAll_Connection
 {
     public class BallConnection : MonoBehaviour
     {
         [SerializeField] private CBallType _ballType;
-        [HideInInspector] public CBallType BallType => _ballType;
+        public CBallType BallType => _ballType;
+        [HideInInspector] public bool IsDrop = false;
         private IBallController _ballController;
 
         private void Awake()
         {
             _ballController = GameObject.FindGameObjectWithTag(TagName.BallController).GetComponent<BallController>();
+        }
+
+        private void Start()
+        {
+            GameStore.Instance.SystemStates.RPIsTimeRunning
+                .Where(x => IsDrop)
+                .Subscribe(x => SetGravity(x))
+                .AddTo(gameObject);
         }
 
         /// <summary>
@@ -50,6 +60,23 @@ namespace BAll_Connection
             }
         }
 
+        /// <summary>
+        /// 停止中は動かないようにする
+        /// </summary>
+        /// <param name="isTimeRunning"></param>
+        public void SetGravity(bool isTimeRunning)
+        {
+            if (!isTimeRunning)
+            {
+                GetComponent<Rigidbody2D>().gravityScale = 0;
+                GetComponent<Rigidbody2D>().velocity = new Vector2(0, 0);
+            }
+            else
+            {
+                GetComponent<Rigidbody2D>().gravityScale = 1;
+            }
+        }
+
         private void OnCollisionEnter2D(Collision2D other)
         {
             if (other.collider.CompareTag(TagName.Ball) &&
@@ -61,6 +88,7 @@ namespace BAll_Connection
                     ConnectBall();
                 }
                 GetComponent<Rigidbody2D>().gravityScale = 0;
+                IsDrop = false;
                 LeanPool.Despawn(gameObject);
             }
         }

@@ -2,6 +2,7 @@ using UnityEngine;
 using InputProvider;
 using UniRx;
 using System;
+using BAll_Connection;
 
 namespace Ball_Drop
 {
@@ -26,7 +27,7 @@ namespace Ball_Drop
         private void Start()
         {
             _inputProvider.OnSubmitObservable
-                .Where(_ => _ballObject != null)
+                .Where(_ => _ballObject != null && _systemState.RPIsTimeRunning.Value)
                 .Subscribe(_ => DropBall())
                 .AddTo(gameObject);
         }
@@ -44,7 +45,7 @@ namespace Ball_Drop
         {
             float inputX = Input.GetAxisRaw("Horizontal");
 
-            if (inputX == 0)
+            if (inputX == 0 || !_systemState.RPIsTimeRunning.Value)
             {
                 return;
             }
@@ -93,6 +94,7 @@ namespace Ball_Drop
         {
             _ballObject.transform.parent = null;
             _ballObject.GetComponent<Rigidbody2D>().gravityScale = 1;
+            _ballObject.GetComponent<BallConnection>().IsDrop = true;
             _ballObject = null;
 
             // 1 秒後にステートを更新

@@ -557,9 +557,10 @@ GameObject:
   m_Component:
   - component: {fileID: 5236608805826464763}
   - component: {fileID: 1040048462408051858}
+  - component: {fileID: -6991187008344243014}
   m_Layer: 5
   m_Name: SuspendView
-  m_TagString: Untagged
+  m_TagString: SuspendView
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -593,6 +594,21 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5305993600608516550}
   m_CullTransparentMesh: 1
+--- !u!114 &-6991187008344243014
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5305993600608516550}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c4830e12b9782254ea4b5ac3bbfa9d0e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _suspendPanel: {fileID: 2605665616770605844}
+  _suspendButton: {fileID: 6976440504943325719}
+  _restertButton: {fileID: 1079861196156465568}
 --- !u!1 &6148234546112578077
 GameObject:
   m_ObjectHideFlags: 0
@@ -973,6 +989,17 @@ PrefabInstance:
       addedObject: {fileID: 725648114127013548}
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: c354ea71afdcf884f82fa00beb0d53d7, type: 3}
+--- !u!114 &1079861196156465568 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 4361518947610900020, guid: c354ea71afdcf884f82fa00beb0d53d7, type: 3}
+  m_PrefabInstance: {fileID: 3637582860394284948}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4e29b1a8efbd4b44bb3f3716e73f07ff, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!224 &1079861196156465570 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 4361518947610900022, guid: c354ea71afdcf884f82fa00beb0d53d7, type: 3}

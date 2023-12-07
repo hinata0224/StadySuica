@@ -4,6 +4,7 @@ using UniRx;
 public interface ISystemState
 {
     public IReadOnlyReactiveCollection<CGameState> RPCGameStates { get; }
+    public IReadOnlyReactiveProperty<bool> RPIsTimeRunning { get; }
     /// <summary>
     /// ゲームステート追加用セッター
     /// </summary>
