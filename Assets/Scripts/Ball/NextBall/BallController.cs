@@ -37,7 +37,7 @@ namespace Ball_Next
         /// </summary>
         private void NextBall()
         {
-            GameObject nextBall = _ballList.NextBallList[UnityEngine.Random.Range(0, _ballCount)].Ball;
+            GameObject nextBall = _ballList.NextBallList[UnityEngine.Random.Range(0, _ballCount)];
             nextBall = LeanPool.Spawn(nextBall);
             _dropController.SetNextBall(nextBall);
             _systemState.RemoveGameState(CGameState.NextBall);
@@ -50,22 +50,20 @@ namespace Ball_Next
         /// <returns></returns>
         public GameObject FindBall(CBallType type)
         {
-            GameObject ball;
-            switch (type)
+            GameObject ball = null;
+            bool isNextBallType = false;
+            foreach (BallData ballData in _ballList.BallLists)
             {
-                case CBallType.Small:
-                    ball = LeanPool.Spawn(_ballList.NextBallList[1].Ball);
-                    break;
-                case CBallType.Middle:
-                    ball = LeanPool.Spawn(_ballList.NextBallList[2].Ball);
-                    break;
-                case CBallType.Major:
-                    ball = null;
-                    break;
-                default:
-                    ball = null;
-                    break;
+                if (isNextBallType)
+                {
+                    ball = LeanPool.Spawn(ballData.Ball);
+                }
+                if (type == ballData.BallType)
+                {
+                    isNextBallType = true;
+                }
             }
+
             return ball;
         }
     }
