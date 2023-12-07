@@ -1,9 +1,9 @@
 using UniRx;
 using UnityEngine;
 
+// TODO: リネーム
 public class SuspendPresenter : MonoBehaviour
 {
-    private SuspendModel _model;
     private SuspendView _view;
 
     private void Awake()
