@@ -1,7 +1,6 @@
 using Ball_Data;
 using Constants;
 using UniRx;
-using UnityEngine;
 
 namespace Score
 {
@@ -28,7 +27,7 @@ namespace Score
         /// <param name="type"></param>
         public void AddScore(CBallType type)
         {
-            foreach (BallData data in _ballList.NextBallList)
+            foreach (BallData data in _ballList.BallLists)
             {
                 if (data.BallType == type)
                 {

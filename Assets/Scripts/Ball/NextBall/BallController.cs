@@ -37,7 +37,7 @@ namespace Ball_Next
         /// </summary>
         private void NextBall()
         {
-            GameObject nextBall = _ballList.NextBallList[UnityEngine.Random.Range(0, _ballCount)].Ball;
+            GameObject nextBall = _ballList.NextBallList[UnityEngine.Random.Range(0, _ballCount)];
             nextBall = LeanPool.Spawn(nextBall);
             _dropController.SetNextBall(nextBall);
             _systemState.RemoveGameState(CGameState.NextBall);
@@ -54,10 +54,10 @@ namespace Ball_Next
             switch (type)
             {
                 case CBallType.Small:
-                    ball = LeanPool.Spawn(_ballList.NextBallList[1].Ball);
+                    ball = LeanPool.Spawn(_ballList.NextBallList[1]);
                     break;
                 case CBallType.Middle:
-                    ball = LeanPool.Spawn(_ballList.NextBallList[2].Ball);
+                    ball = LeanPool.Spawn(_ballList.NextBallList[2]);
                     break;
                 case CBallType.Major:
                     ball = null;
