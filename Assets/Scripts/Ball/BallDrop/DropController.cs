@@ -3,6 +3,8 @@ using InputProvider;
 using UniRx;
 using System;
 using BAll_Connection;
+using Cysharp.Threading.Tasks;
+using System.Threading;
 
 namespace Ball_Drop
 {
@@ -14,6 +16,7 @@ namespace Ball_Drop
 
         private GameObject _ballObject;
         private CompositeDisposable disposables = new CompositeDisposable();
+        private CancellationToken _token;
 
         private IInputProvider _inputProvider;
         private ISystemState _systemState;
@@ -22,6 +25,7 @@ namespace Ball_Drop
         {
             _inputProvider = UnityInputProvider.Instance;
             _systemState = GameStore.Instance.SystemStates;
+            _token = this.GetCancellationTokenOnDestroy();
         }
 
         private void Start()
@@ -90,11 +94,20 @@ namespace Ball_Drop
         /// <summary>
         /// 弾を落とす
         /// </summary>
-        private void DropBall()
+        private async void DropBall()
         {
+            // フラグの更新を待つ
+            await UniTask.DelayFrame(40, cancellationToken: _token);
+            // 時間が止まっていれば落とさない
+            if (!_systemState.RPIsTimeRunning.Value)
+            {
+                return;
+            }
             _ballObject.transform.parent = null;
             _ballObject.GetComponent<Rigidbody2D>().gravityScale = 1;
-            _ballObject.GetComponent<BallConnection>().IsDrop = true;
+            BallConnection ballConnection = _ballObject.GetComponent<BallConnection>();
+            ballConnection.IsDrop = true;
+            ballConnection.SetGameOverFlag();
             _ballObject = null;
 
             // 1 秒後にステートを更新

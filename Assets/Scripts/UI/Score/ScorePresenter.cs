@@ -1,4 +1,5 @@
 using Ball_Data;
+using Constants;
 using UniRx;
 using UnityEngine;
 
@@ -31,7 +32,7 @@ namespace Score
 
             _gameStore.SystemStates.RPCGameStates
                 .ObserveAdd()
-                .Where(x => x.Value == Constants.CGameState.GameOver)
+                .Where(x => x.Value == CGameState.GameOver)
                 .Subscribe(_ => EndGame())
                 .AddTo(gameObject);
         }
@@ -41,6 +42,7 @@ namespace Score
         /// </summary>
         private void EndGame()
         {
+            _gameStore.SystemStates.AddGameState(CGameState.TimeStop);
             _model.SaveScore();
             _scoreView.OpenResultPanel(_gameStore.GameData.GetScoreRanking(), _model.RPScore.Value);
         }
