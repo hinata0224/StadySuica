@@ -4,22 +4,30 @@ using Ball_Next;
 using Lean.Pool;
 using UniRx;
 using Cysharp.Threading.Tasks;
-using System.Collections.Generic;
+using System;
 
 namespace BAll_Connection
 {
+    [RequireComponent(typeof(Rigidbody2D))]
+    [RequireComponent(typeof(CircleCollider2D))]
     public class BallConnection : MonoBehaviour
     {
+        [SerializeField] private float _ballUpLimit = 3.5f;
         [SerializeField] private CBallType _ballType;
         public CBallType BallType => _ballType;
         [HideInInspector] public bool IsDrop = false;
         private bool _isConnect = false;
         public bool IsConnect => _isConnect;
+        private bool _isGameOver = false;
         private IBallController _ballController;
+        private Rigidbody2D _rb;
+        private CircleCollider2D _collider;
 
         private void Awake()
         {
             _ballController = GameObject.FindGameObjectWithTag(TagName.BallController).GetComponent<BallController>();
+            _rb = GetComponent<Rigidbody2D>();
+            _collider = GetComponent<CircleCollider2D>();
         }
 
         private void Start()
@@ -29,11 +37,29 @@ namespace BAll_Connection
                 .Subscribe(x => SetGravity(x))
                 .AddTo(gameObject);
         }
+        private void Update()
+        {
+            if (transform.position.y >= _ballUpLimit && _isGameOver)
+            {
+                if (!IsDrop)
+                {
+                    return;
+                }
+                GameStore.Instance.SystemStates.AddGameState(CGameState.GameOver);
+                _isGameOver = false;
+            }
+        }
 
         private void OnDisable()
         {
             _isConnect = false;
             IsDrop = false;
+            _isGameOver = false;
+        }
+
+        private void OnEnable()
+        {
+            _collider.isTrigger = true;
         }
 
         /// <summary>
@@ -46,6 +72,7 @@ namespace BAll_Connection
             {
                 connectBall.GetComponent<Rigidbody2D>().gravityScale = 1;
                 connectBall.transform.localPosition = transform.localPosition;
+                connectBall.GetComponent<BallConnection>().SetGameOverFlag();
             }
         }
 
@@ -60,8 +87,6 @@ namespace BAll_Connection
             float thisDistance = (originPos - transform.localPosition).sqrMagnitude;
             float targetDistance = (originPos - target.transform.localPosition).sqrMagnitude;
 
-            Debug.Log(IsConnect);
-            Debug.Log(gameObject.name + "++" + target.gameObject.name + "++" + thisDistance + "++ " + targetDistance);
             if (thisDistance < targetDistance)
             {
                 return true;
@@ -80,13 +105,25 @@ namespace BAll_Connection
         {
             if (!isTimeRunning)
             {
-                GetComponent<Rigidbody2D>().gravityScale = 0;
-                GetComponent<Rigidbody2D>().velocity = new Vector2(0, 0);
+                _rb.gravityScale = 0;
+                _rb.velocity = new Vector2(0, 0);
             }
             else
             {
-                GetComponent<Rigidbody2D>().gravityScale = 1;
+                _rb.gravityScale = 1;
             }
+        }
+
+        /// <summary>
+        /// 一秒後にボールのゲームオーバー判定を有効にする
+        /// </summary>
+        public void SetGameOverFlag()
+        {
+            _collider.isTrigger = false;
+            Observable.Timer(TimeSpan.FromSeconds(0.5f))
+                .First()
+                .Subscribe(_ => _isGameOver = true)
+                .AddTo(gameObject);
         }
 
         private void OnCollisionEnter2D(Collision2D other)
@@ -102,7 +139,7 @@ namespace BAll_Connection
                         GameStore.Instance.GameData.AddScoreType(_ballType);
                         ConnectBall();
                     }
-                    GetComponent<Rigidbody2D>().gravityScale = 0;
+                    _rb.gravityScale = 0;
                     IsDrop = false;
                     LeanPool.Despawn(gameObject);
                 }

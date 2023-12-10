@@ -500,7 +500,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4b1990907edaf84409f88f059864c1ae, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _maximumCameraMovableLimit: 4.5
+  _maximumCameraMovableLimit: 3.5
   _speed: 0.02
   _ballPosition: {fileID: 1312107265}
 --- !u!4 &1312107265
@@ -582,7 +582,7 @@ Transform:
   m_GameObject: {fileID: 1609037078}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -5.5, y: -0.5, z: 0}
+  m_LocalPosition: {x: -4.5, y: -0.5, z: 0}
   m_LocalScale: {x: 1, y: 8, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -1058,7 +1058,7 @@ Transform:
   m_GameObject: {fileID: 2146526431}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 5.5, y: -0.5, z: 0}
+  m_LocalPosition: {x: 4.5, y: -0.5, z: 0}
   m_LocalScale: {x: 1, y: 8, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
