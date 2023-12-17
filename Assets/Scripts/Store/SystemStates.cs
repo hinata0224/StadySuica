@@ -25,6 +25,8 @@ public class SystemStates : ISystemState
     private ReactiveCollection<CGameState> _rpCGameStates;
     /// <summary> ゲームステート (Subscribe用) </summary>
     public IReadOnlyReactiveCollection<CGameState> RPCGameStates => _rpCGameStates;
+    /// <summary> ゲームステート (読み取り専用のプロパティ) </summary>
+    public List<CGameState> CGameStates => _rpCGameStates.ToList();
 
     /// <summary>
     /// ゲームステート追加用セッター

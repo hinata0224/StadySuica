@@ -1,3 +1,4 @@
+using Constants;
 using UniRx;
 using UnityEngine;
 
@@ -15,9 +16,8 @@ public class SuspendPresenter : MonoBehaviour
     private void Start()
     {
         GameStore.Instance.SystemStates.RPIsTimeRunning
+            .Where(_ => !GameStore.Instance.SystemStates.CGameStates.Contains(CGameState.GameOver))
             .Subscribe(isTimeRunning => _view.DisplayTimeStopPanel(!isTimeRunning))
             .AddTo(gameObject);
     }
-
-
 }
