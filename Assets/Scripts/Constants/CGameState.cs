@@ -8,5 +8,7 @@ namespace Constants
         GameOver,
         /// <summary> 一時停止 </summary>
         TimeStop,
+        /// <summary> ランキングを表示する </summary>
+        ViewRunking,
     }
 }

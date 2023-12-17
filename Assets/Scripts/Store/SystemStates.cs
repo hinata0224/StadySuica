@@ -74,5 +74,6 @@ public class SystemStates : ISystemState
     /// <value></value>
     private readonly List<CGameState> timeStopGameStates = new List<CGameState>{
         CGameState.TimeStop,
+        CGameState.GameOver,
     };
 }
