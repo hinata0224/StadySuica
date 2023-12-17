@@ -122,6 +122,7 @@ namespace BAll_Connection
             _collider.isTrigger = false;
             Observable.Timer(TimeSpan.FromSeconds(0.5f))
                 .First()
+                .Where(_ => IsDrop)
                 .Subscribe(_ => _isGameOver = true)
                 .AddTo(gameObject);
         }
