@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using Constants;
 using UniRx;
 
@@ -5,6 +6,7 @@ public interface ISystemState
 {
     public IReadOnlyReactiveCollection<CGameState> RPCGameStates { get; }
     public IReadOnlyReactiveProperty<bool> RPIsTimeRunning { get; }
+    public List<CGameState> CGameStates { get; }
     /// <summary>
     /// ゲームステート追加用セッター
     /// </summary>
