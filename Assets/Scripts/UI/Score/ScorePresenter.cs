@@ -42,9 +42,9 @@ namespace Score
         /// </summary>
         private void EndGame()
         {
-            _gameStore.SystemStates.AddGameState(CGameState.TimeStop);
+            // _gameStore.SystemStates.AddGameState(CGameState.TimeStop);
             _model.SaveScore();
-            _scoreView.OpenResultPanel(_gameStore.GameData.GetScoreRanking(), _model.RPScore.Value);
+            _scoreView.OpenResultPanel(_gameStore.GameData.GetScoreRanking());
         }
     }
 }

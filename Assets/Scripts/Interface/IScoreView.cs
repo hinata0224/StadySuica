@@ -1,6 +1,6 @@
 using System.Collections.Generic;
 
-public interface IScoreVire
+public interface IScoreView
 {
     /// <summary>
     /// ゲーム中スコアを表示する
@@ -12,6 +12,16 @@ public interface IScoreVire
     /// リザルトパネルを表示する
     /// </summary>
     /// <param name="scoreList">ランキング用リスト</param>
-    /// <param name="score">今回のスコア</param>
-    public void OpenResultPanel(List<int> scoreList, int score);
+    public void OpenResultPanel(List<int> scoreList);
+
+    /// <summary>
+    /// ランキングパネルを表示する
+    /// </summary>
+    /// <param name="scoreList"></param>
+    public void OpenRunkingPanel(List<int> scoreList);
+
+    /// <summary>
+    /// パネルを閉じる
+    /// </summary>
+    public void ClosePanel();
 }
